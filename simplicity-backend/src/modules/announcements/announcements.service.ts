@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CategoryDto } from './model/dto/category.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Category } from './model/entity/category.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { AnnouncementDto } from './model/dto/announcement.dto';
 import { Announcement } from './model/entity/announcement.entity';
+import { AnnouncementCreationDto } from './model/dto/announcement.creation.dto';
 
 @Injectable()
 export class AnnouncementsService {
@@ -25,5 +26,27 @@ export class AnnouncementsService {
     return allAnnouncements.map((announcement) =>
       AnnouncementDto.fromEntity(announcement),
     );
+  }
+
+  async createAnnouncement(
+    creationDto: AnnouncementCreationDto,
+  ): Promise<AnnouncementDto> {
+    const categories = await this.categoryRepository.findBy({
+      id: In(creationDto.categoryIds.map(({ id }) => id)),
+    });
+
+    if (categories.length !== creationDto.categoryIds.length) {
+      throw new NotFoundException('One or more categories not found');
+    }
+
+    const announcement = this.announcementRepository.create({
+      ...creationDto,
+      categories,
+    });
+
+    const savedAnnouncement =
+      await this.announcementRepository.save(announcement);
+
+    return AnnouncementDto.fromEntity(savedAnnouncement);
   }
 }

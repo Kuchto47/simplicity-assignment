@@ -10,3 +10,21 @@ export const announcementDtoSchema = z.object({
 });
 
 export type AnnouncementDtoType = z.infer<typeof announcementDtoSchema>;
+
+export const announcementCreationDtoSchema = announcementDtoSchema
+  .pick({
+    title: true,
+  })
+  .extend({
+    categoryIds: z
+      .array(
+        z.object({
+          id: z.string().uuid({ message: 'Each category id must be a uuid' }),
+        }),
+      )
+      .min(1, 'At least one category is required'),
+  });
+
+export type AnnouncementCreationDtoType = z.infer<
+  typeof announcementCreationDtoSchema
+>;
