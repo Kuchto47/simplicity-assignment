@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { TrpcModule } from './modules/trpc/trpc.module';
-import { ExampleModule } from './modules/example/example.module';
+import { TrpcModule } from '../trpc/trpc.module';
+import { ExampleModule } from '../example/example.module';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
