@@ -3,9 +3,10 @@ import { AnnouncementsRouter } from './announcements.router';
 import { AnnouncementsService } from './announcements.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Category } from './model/entity/category.entity';
+import { Announcement } from './model/entity/announcement.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Category])],
+  imports: [TypeOrmModule.forFeature([Category, Announcement])],
   controllers: [],
   providers: [AnnouncementsRouter, AnnouncementsService],
   exports: [],
