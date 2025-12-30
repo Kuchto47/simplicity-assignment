@@ -67,6 +67,22 @@ const appRouter = t.router({
         name: z.string({ message: 'Name is required' }),
         id: z.string().uuid({ message: 'Id as uuid is required' }),
       }).pick({ id: true })),
+    })).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
+    deleteAnnouncement: publicProcedure.input(z.object({
+      id: z.string().uuid({ message: 'Id as uuid is required' }),
+      title: z
+        .string({ message: 'Title must be string' })
+        .min(2, 'Title must be at least 2 characters long'),
+      content: z.string(),
+      createdAt: z.string().datetime(),
+      updatedAt: z.string().datetime(),
+      publicationDate: z.string().datetime(),
+      categoryIds: z.array(z.object({
+        name: z.string({ message: 'Name is required' }),
+        id: z.string().uuid({ message: 'Id as uuid is required' }),
+      }).pick({ id: true })),
+    }).pick({
+      id: true,
     })).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any)
   })
 });

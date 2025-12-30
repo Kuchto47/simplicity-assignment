@@ -53,4 +53,9 @@ export class AnnouncementsService {
 
     return AnnouncementDto.fromEntity(savedAnnouncement);
   }
+
+  async deleteAnnouncement(id: string): Promise<number> {
+    const result = await this.announcementRepository.delete(id);
+    return result.affected ?? 0;
+  }
 }

@@ -34,3 +34,11 @@ export const announcementCreationDtoSchema = announcementDtoSchema
 export type AnnouncementCreationDtoType = z.infer<
   typeof announcementCreationDtoSchema
 >;
+
+export const announcementDeletionDtoSchema = announcementDtoSchema.pick({
+  id: true,
+});
+
+export type AnnouncementDeletionDtoType = z.infer<
+  typeof announcementDeletionDtoSchema
+>;

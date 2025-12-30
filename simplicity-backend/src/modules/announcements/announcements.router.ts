@@ -4,12 +4,14 @@ import { AnnouncementsService } from './announcements.service';
 import { z } from 'zod';
 import {
   announcementCreationDtoSchema,
+  announcementDeletionDtoSchema,
   announcementDtoSchema,
 } from './model/dto/announcement.dto.schema';
 import { AnnouncementCreationDto } from './model/dto/announcement.creation.dto';
 import { TRPCError } from '@trpc/server';
 import { AnnouncementDto } from './model/dto/announcement.dto';
 import { CategoryDto } from './model/dto/category.dto';
+import { AnnouncementDeletionDto } from './model/dto/announcement.deletion.dto';
 
 @Router()
 export class AnnouncementsRouter {
@@ -43,5 +45,22 @@ export class AnnouncementsRouter {
     }
 
     return createdAnnouncement;
+  }
+
+  @Mutation({
+    input: announcementDeletionDtoSchema,
+  })
+  async deleteAnnouncement(
+    @Input() dto: AnnouncementDeletionDto,
+  ): Promise<void> {
+    const affectedAnnouncements =
+      await this.announcementsService.deleteAnnouncement(dto.id);
+
+    if (affectedAnnouncements !== 1) {
+      throw new TRPCError({
+        message: `Couldn't find Announcement with id ${dto.id} to delete`,
+        code: 'BAD_REQUEST',
+      });
+    }
   }
 }
