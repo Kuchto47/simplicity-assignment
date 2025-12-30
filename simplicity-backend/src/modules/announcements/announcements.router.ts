@@ -2,7 +2,7 @@ import { Query, Router } from 'nestjs-trpc';
 import {
   categoryDtoSchema,
   CategoryDtoType,
-} from './model/category.dto.schema';
+} from './model/dto/category.dto.schema';
 import { AnnouncementsService } from './announcements.service';
 import { z } from 'zod';
 

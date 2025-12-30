@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { CategoryDto } from './model/category.dto';
+import { CategoryDto } from './model/dto/category.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Category } from './model/category.entity';
+import { Category } from './model/entity/category.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -16,4 +16,6 @@ export class AnnouncementsService {
       CategoryDto.fromEntity(category),
     );
   }
+
+  async createAnnouncement(): Promise<void> {}
 }

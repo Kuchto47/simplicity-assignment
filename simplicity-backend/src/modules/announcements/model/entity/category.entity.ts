@@ -1,4 +1,4 @@
-import { BaseEntity } from '../../../db/base-entity.entity';
+import { BaseEntity } from '../../../../db/base-entity.entity';
 import { Column, Entity, ManyToMany } from 'typeorm';
 import { Announcement } from './announcement.entity';
 

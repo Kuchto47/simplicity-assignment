@@ -1,5 +1,5 @@
 import { CategoryDtoType } from './category.dto.schema';
-import { Category } from './category.entity';
+import { Category } from '../entity/category.entity';
 
 export class CategoryDto implements CategoryDtoType {
   id: string;

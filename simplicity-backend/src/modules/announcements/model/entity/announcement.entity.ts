@@ -1,5 +1,5 @@
 import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
-import { BaseEntity } from '../../../db/base-entity.entity';
+import { BaseEntity } from '../../../../db/base-entity.entity';
 import { Category } from './category.entity';
 
 @Entity({ name: 'announcement' })
