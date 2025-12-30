@@ -4,6 +4,7 @@ import { ExampleModule } from '../example/example.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfig } from '../../db/data-source';
+import { AnnouncementsModule } from '../announcements/announcements.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { typeOrmConfig } from '../../db/data-source';
     }),
     TrpcModule,
     ExampleModule,
+    AnnouncementsModule,
   ],
   controllers: [],
   providers: [],
