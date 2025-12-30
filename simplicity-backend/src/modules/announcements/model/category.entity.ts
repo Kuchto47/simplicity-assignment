@@ -3,6 +3,6 @@ import { Column, Entity } from 'typeorm';
 
 @Entity({ name: 'category' })
 export class Category extends BaseEntity {
-  @Column({ type: 'string' })
+  @Column({ type: 'varchar' })
   name: string;
 }

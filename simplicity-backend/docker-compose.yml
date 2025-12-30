@@ -14,9 +14,10 @@ services:
 
   db:
     image: postgres
-    container_name: test-postgres-db
+    container_name: simplicity-postgres-db
     environment:
-      POSTGRES_PASSWORD: mypasswordTODOENV
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "myp@ssw0rd"
     ports:
       - "15432:5432"
     volumes:

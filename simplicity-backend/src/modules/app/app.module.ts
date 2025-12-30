@@ -3,7 +3,7 @@ import { TrpcModule } from '../trpc/trpc.module';
 import { ExampleModule } from '../example/example.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { typeOrmConfig } from '../../db/config';
+import { typeOrmConfig } from '../../db/data-source';
 
 @Module({
   imports: [
