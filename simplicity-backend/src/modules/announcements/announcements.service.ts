@@ -32,13 +32,13 @@ export class AnnouncementsService {
 
   async createAnnouncement(
     creationDto: AnnouncementCreationDto,
-  ): Promise<AnnouncementDto> {
+  ): Promise<AnnouncementDto | null> {
     const categories = await this.categoryRepository.findBy({
       id: In(creationDto.categoryIds.map(({ id }) => id)),
     });
 
     if (categories.length !== creationDto.categoryIds.length) {
-      throw new NotFoundException('One or more categories not found');
+      return null;
     }
 
     const announcement = this.announcementRepository.create({
