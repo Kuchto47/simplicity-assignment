@@ -6,12 +6,14 @@ import {
   announcementCreationDtoSchema,
   announcementDeletionDtoSchema,
   announcementDtoSchema,
+  announcementUpdateDtoSchema,
 } from './model/dto/announcement.dto.schema';
 import { AnnouncementCreationDto } from './model/dto/announcement.creation.dto';
 import { TRPCError } from '@trpc/server';
 import { AnnouncementDto } from './model/dto/announcement.dto';
 import { CategoryDto } from './model/dto/category.dto';
 import { AnnouncementDeletionDto } from './model/dto/announcement.deletion.dto';
+import { AnnouncementUpdateDto } from './model/dto/announcement.update.dto';
 
 @Router()
 export class AnnouncementsRouter {
@@ -59,6 +61,21 @@ export class AnnouncementsRouter {
     if (affectedAnnouncements !== 1) {
       throw new TRPCError({
         message: `Couldn't find Announcement with id ${dto.id} to delete`,
+        code: 'BAD_REQUEST',
+      });
+    }
+  }
+
+  @Mutation({
+    input: announcementUpdateDtoSchema,
+  })
+  async updateAnnouncement(@Input() dto: AnnouncementUpdateDto): Promise<void> {
+    const updatedAnnouncement =
+      await this.announcementsService.updateAnnouncement(dto);
+
+    if (updatedAnnouncement === null) {
+      throw new TRPCError({
+        message: `Couldn't update Announcement with id ${dto.id} with data ${JSON.stringify(dto)}`,
         code: 'BAD_REQUEST',
       });
     }

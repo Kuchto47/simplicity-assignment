@@ -6,6 +6,7 @@ import { In, Repository } from 'typeorm';
 import { AnnouncementDto } from './model/dto/announcement.dto';
 import { Announcement } from './model/entity/announcement.entity';
 import { AnnouncementCreationDto } from './model/dto/announcement.creation.dto';
+import { AnnouncementUpdateDto } from './model/dto/announcement.update.dto';
 
 @Injectable()
 export class AnnouncementsService {
@@ -33,9 +34,9 @@ export class AnnouncementsService {
   async createAnnouncement(
     creationDto: AnnouncementCreationDto,
   ): Promise<AnnouncementDto | null> {
-    const categories = await this.categoryRepository.findBy({
-      id: In(creationDto.categoryIds.map(({ id }) => id)),
-    });
+    const categories = await this.findRelatedCategories(
+      creationDto.categoryIds.map((c) => c.id),
+    );
 
     if (categories.length !== creationDto.categoryIds.length) {
       return null;
@@ -57,5 +58,43 @@ export class AnnouncementsService {
   async deleteAnnouncement(id: string): Promise<number> {
     const result = await this.announcementRepository.delete(id);
     return result.affected ?? 0;
+  }
+
+  async updateAnnouncement(
+    announcement: AnnouncementUpdateDto,
+  ): Promise<AnnouncementDto | null> {
+    const existingAnnouncement = await this.announcementRepository.findOne({
+      where: { id: announcement.id },
+      relations: ['categories'],
+    });
+
+    if (!existingAnnouncement) {
+      return null;
+    }
+
+    const categories = await this.findRelatedCategories(
+      announcement.categoryIds.map((c) => c.id),
+    );
+    if (categories.length !== announcement.categoryIds?.length) {
+      return null;
+    }
+
+    existingAnnouncement.categories = categories;
+    existingAnnouncement.content = announcement.content;
+    existingAnnouncement.publicationDate = new Date(
+      announcement.publicationDate,
+    );
+    existingAnnouncement.title = announcement.title;
+
+    const savedAnnouncement =
+      await this.announcementRepository.save(existingAnnouncement);
+
+    return AnnouncementDto.fromEntity(savedAnnouncement);
+  }
+
+  private findRelatedCategories(categoryIds: string[]): Promise<Category[]> {
+    return this.categoryRepository.findBy({
+      id: In(categoryIds),
+    });
   }
 }
