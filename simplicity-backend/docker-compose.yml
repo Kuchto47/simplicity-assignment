@@ -1,0 +1,26 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3030:3000"
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run start:dev
+
+  db:
+    image: postgres
+    container_name: test-postgres-db
+    environment:
+      POSTGRES_PASSWORD: mypasswordTODOENV
+    ports:
+      - "15432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+volumes:
+  postgres_data:
