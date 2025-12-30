@@ -11,7 +11,10 @@ import { typeOrmConfig } from '../../db/data-source';
       isGlobal: true,
       envFilePath: '.env',
     }),
-    TypeOrmModule.forRoot(typeOrmConfig),
+    TypeOrmModule.forRoot({
+      ...typeOrmConfig,
+      autoLoadEntities: true,
+    }),
     TrpcModule,
     ExampleModule,
   ],

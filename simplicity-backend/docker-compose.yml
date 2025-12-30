@@ -7,6 +7,12 @@ services:
       - "3030:3000"
     depends_on:
       - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=myp@ssw0rd
+      - DB_DATABASE=postgres
     volumes:
       - .:/app
       - /app/node_modules
