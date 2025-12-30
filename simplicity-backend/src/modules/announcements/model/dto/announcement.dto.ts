@@ -8,6 +8,8 @@ export class AnnouncementDto implements AnnouncementDtoType {
   id: string;
   title: string;
   updatedAt: string;
+  content: string;
+  publicationDate: string;
 
   static fromEntity(entity: Announcement): AnnouncementDto {
     return {
@@ -16,6 +18,8 @@ export class AnnouncementDto implements AnnouncementDtoType {
       id: entity.id,
       title: entity.title,
       updatedAt: entity.updatedAt.toISOString(),
+      content: entity.content,
+      publicationDate: entity.publicationDate.toISOString(),
     };
   }
 }

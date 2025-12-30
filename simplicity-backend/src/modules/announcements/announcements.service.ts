@@ -42,7 +42,9 @@ export class AnnouncementsService {
     }
 
     const announcement = this.announcementRepository.create({
-      ...creationDto,
+      title: creationDto.title,
+      content: creationDto.content,
+      publicationDate: new Date(creationDto.publicationDate),
       categories,
     });
 

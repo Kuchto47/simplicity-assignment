@@ -7,6 +7,12 @@ export class Announcement extends BaseEntity {
   @Column({ type: 'varchar' })
   title: string;
 
+  @Column({ type: 'varchar' })
+  content: string;
+
+  @Column({ type: 'timestamp' })
+  publicationDate: Date;
+
   @ManyToMany(() => Category, (category) => category.announcements)
   @JoinTable()
   categories: Category[];
