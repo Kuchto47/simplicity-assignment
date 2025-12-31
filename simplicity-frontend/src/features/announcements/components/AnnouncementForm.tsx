@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form';
 import {
-  announcementCreateSchema,
-  type AnnouncementCreateSchemaType,
-} from '@/features/announcements/model/announcement.create.schema.ts';
+  announcementSchema,
+  type AnnouncementSchemaType,
+} from '@/features/announcements/model/announcementSchema.ts';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
@@ -28,27 +28,55 @@ import {
 } from '@/shadcn/components/combobox.tsx';
 import { useCategories } from '@/features/announcements/hooks/useCategories.ts';
 import { useAddAnnouncement } from '@/features/announcements/hooks/useAddAnnouncement.ts';
+import { useQueryClient } from '@tanstack/react-query';
+import { announcementsQueryOptions } from '@/features/announcements/hooks/useAnnouncements.ts';
+import { format } from 'date-fns';
+import { useEditAnnouncement } from '@/features/announcements/hooks/useEditAnnouncement.ts';
+import { PUB_DATE_INPUT_FORMAT } from '@/features/announcements/consts.ts';
 
-export const AnnouncementForm = () => {
+interface Props {
+  id?: string;
+}
+
+export const AnnouncementForm = (props: Props) => {
   const { data: categories } = useCategories();
+  const queryClient = useQueryClient();
+  const announcementToEdit = queryClient
+    .getQueryData(announcementsQueryOptions.queryKey)
+    ?.find((announcement) => announcement.id === props.id);
   const comboboxAnchor = useComboboxAnchor();
   const { mutate: addAnnouncement } = useAddAnnouncement();
+  const { mutate: editAnnouncement } = useEditAnnouncement();
 
-  const form = useForm<AnnouncementCreateSchemaType>({
-    resolver: zodResolver(announcementCreateSchema),
+  const form = useForm<AnnouncementSchemaType>({
+    resolver: zodResolver(announcementSchema),
     defaultValues: {
-      title: '',
-      content: '',
-      publicationDate: '',
-      categoryNames: [],
+      title: announcementToEdit?.title ?? '',
+      content: announcementToEdit?.content ?? '',
+      publicationDate: announcementToEdit
+        ? format(
+            new Date(announcementToEdit.publicationDate),
+            PUB_DATE_INPUT_FORMAT
+          )
+        : '',
+      categoryNames:
+        announcementToEdit?.categoryIds.map(
+          (cid) => categories.find((c) => c.id === cid.id)?.name
+        ) ?? [],
     },
   });
 
-  function onSubmit(values: AnnouncementCreateSchemaType) {
-    addAnnouncement(values);
+  function onSubmit(values: AnnouncementSchemaType) {
+    if (announcementToEdit) {
+      editAnnouncement({ ...values, id: props.id! });
+    } else {
+      addAnnouncement(values);
+    }
   }
 
-  return (
+  return !announcementToEdit && !!props.id ? (
+    <>Announcement not found!</>
+  ) : (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
@@ -87,7 +115,7 @@ export const AnnouncementForm = () => {
             <FormItem>
               <FormLabel className="mb-2">Publication Date</FormLabel>
               <FormControl>
-                <Input placeholder="MM/DD/YYYY HH:mm" {...field} />
+                <Input placeholder={PUB_DATE_INPUT_FORMAT} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

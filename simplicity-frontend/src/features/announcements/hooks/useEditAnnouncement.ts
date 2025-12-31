@@ -1,18 +1,19 @@
 import { useMutation } from '@tanstack/react-query';
 import { trpcClient } from '@/trpc/trpc.ts';
 import type { AnnouncementSchemaType } from '@/features/announcements/model/announcementSchema.ts';
-import { useNavigate } from '@tanstack/react-router';
 import { mapFormattedDateStringToIsoString } from '@/features/announcements/services/mapper.ts';
 import { useMapCategoryNamesToIds } from '@/features/announcements/model/useMapCategoryNamesToIds.ts';
+import { useNavigate } from '@tanstack/react-router';
 
-export const useAddAnnouncement = () => {
-  const navigate = useNavigate();
+export const useEditAnnouncement = () => {
   const { mapNamesToIds } = useMapCategoryNamesToIds();
+  const navigate = useNavigate();
 
   return useMutation({
-    mutationKey: ['addAnnouncement'],
-    mutationFn: (data: AnnouncementSchemaType) =>
-      trpcClient.announcementsRouter.createAnnouncement.mutate({
+    mutationKey: ['editAnnouncement'],
+    mutationFn: (data: AnnouncementSchemaType & { id: string }) =>
+      trpcClient.announcementsRouter.updateAnnouncement.mutate({
+        id: data.id,
         title: data.title,
         content: data.content,
         publicationDate: mapFormattedDateStringToIsoString(

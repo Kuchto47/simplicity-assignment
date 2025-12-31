@@ -11,6 +11,10 @@ import { useAnnouncements } from '@/features/announcements/hooks/useAnnouncement
 import { format } from 'date-fns';
 import { useCategories } from '@/features/announcements/hooks/useCategories.ts';
 import { Link } from '@tanstack/react-router';
+import {
+  PUB_DATE_TABLE_FORMAT,
+  UPDATED_AT_TABLE_FORMAT,
+} from '@/features/announcements/consts.ts';
 
 export const AnnouncementsTable = () => {
   const { data: announcements } = useAnnouncements();
@@ -72,10 +76,10 @@ const AnnouncementTableRow = ({
     <TableRow>
       <TableCell>{announcement.title}</TableCell>
       <TableCell>
-        {format(new Date(announcement.publicationDate), 'MMM d, yyyy HH:mm')}
+        {format(new Date(announcement.publicationDate), PUB_DATE_TABLE_FORMAT)}
       </TableCell>
       <TableCell>
-        {format(new Date(announcement.updatedAt), 'MMM d, yyyy')}
+        {format(new Date(announcement.updatedAt), UPDATED_AT_TABLE_FORMAT)}
       </TableCell>
       <TableCell>
         {announcement.categoryIds

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { PUB_DATE_INPUT_FORMAT } from '@/features/announcements/consts.ts';
 
 const TITLE = z
   .string({ message: 'Title must be string' })
@@ -8,17 +9,15 @@ const DATETIME = z
   .string()
   .regex(
     /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4} ([01][0-9]|2[0-3]):[0-5][0-9]$/,
-    'Date must be in MM/DD/YYYY HH:mm format'
+    `Date must be in ${PUB_DATE_INPUT_FORMAT} format`
   );
 const CATEGORIES = z.array(STRING); // names
 
-export const announcementCreateSchema = z.object({
+export const announcementSchema = z.object({
   title: TITLE,
   content: STRING,
   publicationDate: DATETIME,
   categoryNames: CATEGORIES.min(1, 'At least one category is required'),
 });
 
-export type AnnouncementCreateSchemaType = z.infer<
-  typeof announcementCreateSchema
->;
+export type AnnouncementSchemaType = z.infer<typeof announcementSchema>;

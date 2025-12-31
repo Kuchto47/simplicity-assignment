@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { categoriesQueryOptions } from '@/features/announcements/hooks/useCategories.ts';
+import { AnnouncementForm } from '@/features/announcements/components/AnnouncementForm.tsx';
 
 export const Route = createFileRoute('/announcements/$id')({
   component: AnnouncementEdit,
@@ -12,8 +13,11 @@ function AnnouncementEdit() {
   const { id } = Route.useParams();
 
   return (
-    <div className="flex flex-col justify-start h-full w-full p-8 gap-4">
-      <h1 className="text-2xl font-bold">Edit Announcement {id}</h1>
-    </div>
+    <>
+      <h1 className="text-2xl font-bold">Edit Announcement</h1>
+      <div className="flex flex-col items-center pt-8 pb-16">
+        <AnnouncementForm id={id} />
+      </div>
+    </>
   );
 }
