@@ -1,9 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
-import {
-  announcementsQueryOptions,
-  useAnnouncements,
-} from '@/features/announcements/hooks/useAnnouncements.ts';
+import { announcementsQueryOptions } from '@/features/announcements/hooks/useAnnouncements.ts';
 import { AnnouncementsTableTitle } from '@/features/announcements/components/AnnouncementsTableTitle.tsx';
+import { AnnouncementsTable } from '@/features/announcements/components/AnnouncementsTable.tsx';
+import { Suspense } from 'react';
 
 export const Route = createFileRoute('/announcements')({
   component: Announcements,
@@ -13,12 +12,12 @@ export const Route = createFileRoute('/announcements')({
 });
 
 function Announcements() {
-  const { data } = useAnnouncements();
-
   return (
     <div className="flex flex-col justify-start h-full w-full p-8 gap-4">
       <AnnouncementsTableTitle />
-      Hello from Announcements! data: {JSON.stringify(data)}
+      <Suspense fallback={<>Loading...</>}>
+        <AnnouncementsTable />
+      </Suspense>
     </div>
   );
 }
