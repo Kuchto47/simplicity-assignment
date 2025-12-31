@@ -88,7 +88,7 @@ const AnnouncementTableRow = ({
       </TableCell>
       <TableCell className="flex justify-end">
         <Link to="/announcements/$id" params={{ id: announcement.id }}>
-          <Pen className="cursor-pointer" />
+          <Pen className="cursor-pointer" size="22" />
         </Link>
       </TableCell>
     </TableRow>

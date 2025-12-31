@@ -29,7 +29,7 @@ import {
 import { useCategories } from '@/features/announcements/hooks/useCategories.ts';
 import { useAddAnnouncement } from '@/features/announcements/hooks/useAddAnnouncement.ts';
 
-export const AddAnnouncementForm = () => {
+export const AnnouncementForm = () => {
   const { data: categories } = useCategories();
   const comboboxAnchor = useComboboxAnchor();
   const { mutate: addAnnouncement } = useAddAnnouncement();
