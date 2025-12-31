@@ -61,6 +61,12 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## API documentation
+
+BE is exposed on port 3030 to your local machine.
+
+API documentation AND manual testing with live DB is possible on [tRPC panel page](http://localhost:3030/panel) (again, with running Docker Compose!)
+
 ## Run tests
 
 In current state, no tests are written. Simply did not have time to do it.
