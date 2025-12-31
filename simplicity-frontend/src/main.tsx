@@ -6,8 +6,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import './index.css';
 
-const router = createRouter({ routeTree });
 const queryClient = new QueryClient();
+
+const router = createRouter({ routeTree, context: { queryClient } });
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {
