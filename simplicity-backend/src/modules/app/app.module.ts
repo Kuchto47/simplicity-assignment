@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { TrpcModule } from '../trpc/trpc.module';
-import { ExampleModule } from '../example/example.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfig } from '../../db/data-source';
@@ -17,7 +16,6 @@ import { AnnouncementsModule } from '../announcements/announcements.module';
       autoLoadEntities: true,
     }),
     TrpcModule,
-    ExampleModule,
     AnnouncementsModule,
   ],
   controllers: [],
