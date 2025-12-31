@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AnnouncementsRouteImport } from './routes/announcements'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AnnouncementsIndexRouteImport } from './routes/announcements.index'
 import { Route as AnnouncementsAddRouteImport } from './routes/announcements.add'
 import { Route as AnnouncementsIdRouteImport } from './routes/announcements.$id'
 
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AnnouncementsIndexRoute = AnnouncementsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AnnouncementsRoute,
 } as any)
 const AnnouncementsAddRoute = AnnouncementsAddRouteImport.update({
   id: '/add',
@@ -40,12 +46,13 @@ export interface FileRoutesByFullPath {
   '/announcements': typeof AnnouncementsRouteWithChildren
   '/announcements/$id': typeof AnnouncementsIdRoute
   '/announcements/add': typeof AnnouncementsAddRoute
+  '/announcements/': typeof AnnouncementsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/announcements': typeof AnnouncementsRouteWithChildren
   '/announcements/$id': typeof AnnouncementsIdRoute
   '/announcements/add': typeof AnnouncementsAddRoute
+  '/announcements': typeof AnnouncementsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,6 +60,7 @@ export interface FileRoutesById {
   '/announcements': typeof AnnouncementsRouteWithChildren
   '/announcements/$id': typeof AnnouncementsIdRoute
   '/announcements/add': typeof AnnouncementsAddRoute
+  '/announcements/': typeof AnnouncementsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -61,14 +69,16 @@ export interface FileRouteTypes {
     | '/announcements'
     | '/announcements/$id'
     | '/announcements/add'
+    | '/announcements/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/announcements' | '/announcements/$id' | '/announcements/add'
+  to: '/' | '/announcements/$id' | '/announcements/add' | '/announcements'
   id:
     | '__root__'
     | '/'
     | '/announcements'
     | '/announcements/$id'
     | '/announcements/add'
+    | '/announcements/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -92,6 +102,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/announcements/': {
+      id: '/announcements/'
+      path: '/'
+      fullPath: '/announcements/'
+      preLoaderRoute: typeof AnnouncementsIndexRouteImport
+      parentRoute: typeof AnnouncementsRoute
+    }
     '/announcements/add': {
       id: '/announcements/add'
       path: '/add'
@@ -112,11 +129,13 @@ declare module '@tanstack/react-router' {
 interface AnnouncementsRouteChildren {
   AnnouncementsIdRoute: typeof AnnouncementsIdRoute
   AnnouncementsAddRoute: typeof AnnouncementsAddRoute
+  AnnouncementsIndexRoute: typeof AnnouncementsIndexRoute
 }
 
 const AnnouncementsRouteChildren: AnnouncementsRouteChildren = {
   AnnouncementsIdRoute: AnnouncementsIdRoute,
   AnnouncementsAddRoute: AnnouncementsAddRoute,
+  AnnouncementsIndexRoute: AnnouncementsIndexRoute,
 }
 
 const AnnouncementsRouteWithChildren = AnnouncementsRoute._addFileChildren(

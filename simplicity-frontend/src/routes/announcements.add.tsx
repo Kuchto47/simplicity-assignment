@@ -9,9 +9,5 @@ export const Route = createFileRoute('/announcements/add')({
 });
 
 function AnnouncementAdd() {
-  return (
-    <div className="flex flex-col justify-start h-full w-full p-8 gap-4">
-      <h1 className="text-2xl font-bold">Add New Announcement</h1>
-    </div>
-  );
+  return <h1 className="text-2xl font-bold">Add New Announcement</h1>;
 }

@@ -10,6 +10,7 @@ import { Pen, Plus } from 'lucide-react';
 import { useAnnouncements } from '@/features/announcements/hooks/useAnnouncements.ts';
 import { format } from 'date-fns';
 import { useCategories } from '@/features/announcements/hooks/useCategories.ts';
+import { Link } from '@tanstack/react-router';
 
 export const AnnouncementsTable = () => {
   const { data: announcements } = useAnnouncements();
@@ -52,7 +53,9 @@ const AddAnnouncementTableRow = () => {
       <TableCell />
       <TableCell />
       <TableCell className="flex justify-end">
-        <Plus className="cursor-pointer" />
+        <Link to="/announcements/add">
+          <Plus className="cursor-pointer" />
+        </Link>
       </TableCell>
     </TableRow>
   );
@@ -84,7 +87,9 @@ const AnnouncementTableRow = ({
           .join(', ')}
       </TableCell>
       <TableCell className="flex justify-end">
-        <Pen className="cursor-pointer" />
+        <Link to="/announcements/$id" params={{ id: announcement.id }}>
+          <Pen className="cursor-pointer" />
+        </Link>
       </TableCell>
     </TableRow>
   );
