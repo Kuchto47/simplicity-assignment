@@ -75,9 +75,13 @@ const AnnouncementTableRow = ({
         {format(new Date(announcement.updatedAt), 'MMM d, yyyy')}
       </TableCell>
       <TableCell>
-        {announcement.categoryIds.map(
-          (cid) => categories.find((c) => c.id === cid.id)?.name
-        )}
+        {announcement.categoryIds
+          .map(
+            (cid) =>
+              categories.find((c) => c.id === cid.id)?.name ??
+              cid.id.substring(0, 4)
+          )
+          .join(', ')}
       </TableCell>
       <TableCell className="flex justify-end">
         <Pen className="cursor-pointer" />
