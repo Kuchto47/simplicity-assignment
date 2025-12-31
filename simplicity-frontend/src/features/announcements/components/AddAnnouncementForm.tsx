@@ -15,15 +15,30 @@ import {
 import { Input } from '@/shadcn/components/input.tsx';
 import { Button } from '@/shadcn/components/button.tsx';
 import { Textarea } from '@/shadcn/components/textarea.tsx';
+import {
+  Combobox,
+  ComboboxChip,
+  ComboboxChips,
+  ComboboxChipsInput,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxItem,
+  ComboboxList,
+  useComboboxAnchor,
+} from '@/shadcn/components/combobox.tsx';
+import { useCategories } from '@/features/announcements/hooks/useCategories.ts';
 
 export const AddAnnouncementForm = () => {
+  const { data: categories } = useCategories();
+  const comboboxAnchor = useComboboxAnchor();
+
   const form = useForm<AnnouncementCreateSchemaType>({
     resolver: zodResolver(announcementCreateSchema),
     defaultValues: {
       title: '',
       content: '',
       publicationDate: '',
-      categoryIds: [],
+      categoryNames: [],
     },
   });
 
@@ -76,19 +91,48 @@ export const AddAnnouncementForm = () => {
             </FormItem>
           )}
         />
-        {/*<FormField*/}
-        {/*  control={form.control}*/}
-        {/*  name="categoryIds"*/}
-        {/*  render={({ field }) => (*/}
-        {/*    <FormItem>*/}
-        {/*      <FormLabel className="mb-2">Publication Date</FormLabel>*/}
-        {/*      <FormControl>*/}
-        {/*        <Input placeholder="MM/DD/YYYY HH:mm" {...field} />*/}
-        {/*      </FormControl>*/}
-        {/*      <FormMessage />*/}
-        {/*    </FormItem>*/}
-        {/*  )}*/}
-        {/*/>*/}
+        <FormField
+          control={form.control}
+          name="categoryNames"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="mb-2">Categories</FormLabel>
+              <FormControl>
+                <Combobox
+                  items={categories.map((category) => ({
+                    id: category.id,
+                    name: category.name,
+                  }))}
+                  multiple
+                  value={field.value}
+                  onValueChange={field.onChange}
+                >
+                  <ComboboxChips ref={comboboxAnchor}>
+                    {field.value.map((category) => (
+                      <ComboboxChip key={category}>{category}</ComboboxChip>
+                    ))}
+                    <ComboboxChipsInput
+                      placeholder={
+                        field.value.length === 0 ? 'Select categories...' : ''
+                      }
+                    />
+                  </ComboboxChips>
+                  <ComboboxContent anchor={comboboxAnchor.current}>
+                    <ComboboxEmpty>No categories available.</ComboboxEmpty>
+                    <ComboboxList>
+                      {(item: (typeof categories)[0]) => (
+                        <ComboboxItem key={item.id} value={item.name}>
+                          {item.name}
+                        </ComboboxItem>
+                      )}
+                    </ComboboxList>
+                  </ComboboxContent>
+                </Combobox>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <Button type="submit" className="w-fit self-end">
           Submit
         </Button>
