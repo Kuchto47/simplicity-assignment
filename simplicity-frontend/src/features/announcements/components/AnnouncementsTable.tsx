@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/table.tsx';
 import { Pen, Plus } from 'lucide-react';
 import { useAnnouncements } from '@/features/announcements/hooks/useAnnouncements.ts';
+import { format } from 'date-fns';
 
 export const AnnouncementsTable = () => {
   const { data } = useAnnouncements();
@@ -64,8 +65,12 @@ const AnnouncementTableRow = ({
   return (
     <TableRow>
       <TableCell>{announcement.title}</TableCell>
-      <TableCell>{announcement.publicationDate}</TableCell>
-      <TableCell>{announcement.updatedAt}</TableCell>
+      <TableCell>
+        {format(new Date(announcement.publicationDate), 'MMM d, yyyy HH:MM')}
+      </TableCell>
+      <TableCell>
+        {format(new Date(announcement.updatedAt), 'MMM d, yyyy')}
+      </TableCell>
       <TableCell>
         {announcement.categoryIds.map((cid) => cid.id.substring(0, 4))}
       </TableCell>
