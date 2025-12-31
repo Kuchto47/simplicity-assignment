@@ -27,10 +27,12 @@ import {
   useComboboxAnchor,
 } from '@/shadcn/components/combobox.tsx';
 import { useCategories } from '@/features/announcements/hooks/useCategories.ts';
+import { useAddAnnouncement } from '@/features/announcements/hooks/useAddAnnouncement.ts';
 
 export const AddAnnouncementForm = () => {
   const { data: categories } = useCategories();
   const comboboxAnchor = useComboboxAnchor();
+  const { mutate: addAnnouncement } = useAddAnnouncement();
 
   const form = useForm<AnnouncementCreateSchemaType>({
     resolver: zodResolver(announcementCreateSchema),
@@ -43,7 +45,7 @@ export const AddAnnouncementForm = () => {
   });
 
   function onSubmit(values: AnnouncementCreateSchemaType) {
-    console.log(values);
+    addAnnouncement(values);
   }
 
   return (
