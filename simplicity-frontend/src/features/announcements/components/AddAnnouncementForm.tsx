@@ -14,6 +14,7 @@ import {
 } from '@/shadcn/components/form.tsx';
 import { Input } from '@/shadcn/components/input.tsx';
 import { Button } from '@/shadcn/components/button.tsx';
+import { Textarea } from '@/shadcn/components/textarea.tsx';
 
 export const AddAnnouncementForm = () => {
   const form = useForm<AnnouncementCreateSchemaType>({
@@ -49,6 +50,45 @@ export const AddAnnouncementForm = () => {
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="content"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="mb-2">Content</FormLabel>
+              <FormControl>
+                <Textarea placeholder="Announcement Details" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="publicationDate"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="mb-2">Publication Date</FormLabel>
+              <FormControl>
+                <Input placeholder="MM/DD/YYYY HH:mm" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        {/*<FormField*/}
+        {/*  control={form.control}*/}
+        {/*  name="categoryIds"*/}
+        {/*  render={({ field }) => (*/}
+        {/*    <FormItem>*/}
+        {/*      <FormLabel className="mb-2">Publication Date</FormLabel>*/}
+        {/*      <FormControl>*/}
+        {/*        <Input placeholder="MM/DD/YYYY HH:mm" {...field} />*/}
+        {/*      </FormControl>*/}
+        {/*      <FormMessage />*/}
+        {/*    </FormItem>*/}
+        {/*  )}*/}
+        {/*/>*/}
         <Button type="submit" className="w-fit self-end">
           Submit
         </Button>
