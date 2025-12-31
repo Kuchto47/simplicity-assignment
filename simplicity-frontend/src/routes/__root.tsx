@@ -3,11 +3,13 @@ import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import { NavBar } from '@/features/navbar/components/NavBar.tsx';
 
 const RootLayout = () => (
-  <>
+  <div className="flex flex-col h-screen">
     <NavBar />
-    <Outlet />
+    <div className="flex-1 overflow-auto">
+      <Outlet />
+    </div>
     <TanStackRouterDevtools />
-  </>
+  </div>
 );
 
 export const Route = createRootRoute({ component: RootLayout });
