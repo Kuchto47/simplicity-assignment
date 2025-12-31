@@ -25,6 +25,8 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+Prerequisite for local run is `docker desktop` installed.
+
 ## Project setup
 
 ```bash
@@ -33,6 +35,21 @@ $ npm install
 
 ## Compile and run the project
 
+Following command shall be enough to setup the project locally with docker.
+
+```bash
+docker compose up
+```
+
+PostgresSQL DB is spun as a docker image and BE connects to it from its own container.
+All migrations shall run too, which should seed categories into the DB.
+
+To tear the containers down, run:
+```bash
+docker compose down
+```
+
+To run only BE, you can resort to the standard commands (but won't work as the DB connection wouldn't be able to be established)
 ```bash
 # development
 $ npm run start
@@ -45,6 +62,8 @@ $ npm run start:prod
 ```
 
 ## Run tests
+
+In current state, no tests are written. Simply did not have time to do it.
 
 ```bash
 # unit tests
