@@ -5,7 +5,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet.tsx';
+} from '@/shadcn/components/sheet.tsx';
 import { Menu, LucideHome, MegaphoneIcon } from 'lucide-react';
 import { Link, useMatchRoute } from '@tanstack/react-router';
 

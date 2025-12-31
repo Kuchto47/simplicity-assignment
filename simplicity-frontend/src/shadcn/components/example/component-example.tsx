@@ -1,6 +1,9 @@
 import * as React from 'react';
 
-import { Example, ExampleWrapper } from '@/components/example';
+import {
+  Example,
+  ExampleWrapper,
+} from '@/shadcn/components/example/example.tsx';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,9 +15,9 @@ import {
   AlertDialogMedia,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+} from '@/shadcn/components/alert-dialog.tsx';
+import { Badge } from '@/shadcn/components/badge.tsx';
+import { Button } from '@/shadcn/components/button.tsx';
 import {
   Card,
   CardAction,
@@ -23,7 +26,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
+} from '@/shadcn/components/card.tsx';
 import {
   Combobox,
   ComboboxContent,
@@ -31,7 +34,7 @@ import {
   ComboboxInput,
   ComboboxItem,
   ComboboxList,
-} from '@/components/ui/combobox';
+} from '@/shadcn/components/combobox.tsx';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -48,9 +51,9 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
-import { Input } from '@/components/ui/input';
+} from '@/shadcn/components/dropdown-menu.tsx';
+import { Field, FieldGroup, FieldLabel } from '@/shadcn/components/field.tsx';
+import { Input } from '@/shadcn/components/input.tsx';
 import {
   Select,
   SelectContent,
@@ -58,8 +61,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
+} from '@/shadcn/components/select.tsx';
+import { Textarea } from '@/shadcn/components/textarea.tsx';
 import {
   PlusIcon,
   BluetoothIcon,

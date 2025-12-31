@@ -5,7 +5,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table.tsx';
+} from '@/shadcn/components/table.tsx';
 import { Pen, Plus } from 'lucide-react';
 import { useAnnouncements } from '@/features/announcements/hooks/useAnnouncements.ts';
 import { format } from 'date-fns';
