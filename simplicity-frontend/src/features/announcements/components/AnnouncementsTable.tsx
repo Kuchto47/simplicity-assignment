@@ -33,7 +33,7 @@ const AnnouncementsTableHead = () => {
   return (
     <TableHeader>
       <TableRow>
-        <TableHead className="w-[100px]">Title</TableHead>
+        <TableHead>Title</TableHead>
         <TableHead>Publication Date</TableHead>
         <TableHead>Last Update</TableHead>
         <TableHead>Categories</TableHead>
