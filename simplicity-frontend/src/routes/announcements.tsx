@@ -3,6 +3,7 @@ import {
   announcementsQueryOptions,
   useAnnouncements,
 } from '@/features/announcements/hooks/useAnnouncements.ts';
+import { AnnouncementsTableTitle } from '@/features/announcements/components/AnnouncementsTableTitle.tsx';
 
 export const Route = createFileRoute('/announcements')({
   component: Announcements,
@@ -15,7 +16,8 @@ function Announcements() {
   const { data } = useAnnouncements();
 
   return (
-    <div className="p-2">
+    <div className="flex flex-col justify-start h-full w-full p-8 gap-4">
+      <AnnouncementsTableTitle />
       Hello from Announcements! data: {JSON.stringify(data)}
     </div>
   );
