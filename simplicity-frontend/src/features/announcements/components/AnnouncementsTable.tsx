@@ -72,7 +72,7 @@ const AnnouncementTableRow = ({
     <TableRow>
       <TableCell>{announcement.title}</TableCell>
       <TableCell>
-        {format(new Date(announcement.publicationDate), 'MMM d, yyyy HH:MM')}
+        {format(new Date(announcement.publicationDate), 'MMM d, yyyy HH:mm')}
       </TableCell>
       <TableCell>
         {format(new Date(announcement.updatedAt), 'MMM d, yyyy')}
