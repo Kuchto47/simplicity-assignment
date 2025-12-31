@@ -2,11 +2,11 @@ import { useMutation } from '@tanstack/react-query';
 import { trpcClient } from '@/trpc/trpc.ts';
 import type { AnnouncementSchemaType } from '@/features/announcements/model/announcementSchema.ts';
 import { mapFormattedDateStringToIsoString } from '@/features/announcements/services/mapper.ts';
-import { useMapCategoryNamesToIds } from '@/features/announcements/model/useMapCategoryNamesToIds.ts';
+import { useMapCategories } from '@/features/announcements/model/useMapCategories.ts';
 import { useNavigate } from '@tanstack/react-router';
 
 export const useEditAnnouncement = () => {
-  const { mapNamesToIds } = useMapCategoryNamesToIds();
+  const { mapNamesToIds } = useMapCategories();
   const navigate = useNavigate();
 
   return useMutation({

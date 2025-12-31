@@ -3,11 +3,11 @@ import { trpcClient } from '@/trpc/trpc.ts';
 import type { AnnouncementSchemaType } from '@/features/announcements/model/announcementSchema.ts';
 import { useNavigate } from '@tanstack/react-router';
 import { mapFormattedDateStringToIsoString } from '@/features/announcements/services/mapper.ts';
-import { useMapCategoryNamesToIds } from '@/features/announcements/model/useMapCategoryNamesToIds.ts';
+import { useMapCategories } from '@/features/announcements/model/useMapCategories.ts';
 
 export const useAddAnnouncement = () => {
   const navigate = useNavigate();
-  const { mapNamesToIds } = useMapCategoryNamesToIds();
+  const { mapNamesToIds } = useMapCategories();
 
   return useMutation({
     mutationKey: ['addAnnouncement'],

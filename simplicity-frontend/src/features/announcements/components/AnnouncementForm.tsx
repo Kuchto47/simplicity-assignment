@@ -54,10 +54,7 @@ export const AnnouncementForm = (props: Props) => {
       title: announcementToEdit?.title ?? '',
       content: announcementToEdit?.content ?? '',
       publicationDate: announcementToEdit
-        ? format(
-            new Date(announcementToEdit.publicationDate),
-            PUB_DATE_INPUT_FORMAT
-          )
+        ? format(announcementToEdit.publicationDate, PUB_DATE_INPUT_FORMAT)
         : '',
       categoryNames:
         announcementToEdit?.categoryIds.map(
