@@ -25,6 +25,7 @@ export class AnnouncementsService {
   async getAllAnnouncements(): Promise<AnnouncementDto[]> {
     const allAnnouncements = await this.announcementRepository.find({
       relations: ['categories'],
+      order: { updatedAt: 'DESC' },
     });
     return allAnnouncements.map((announcement) =>
       AnnouncementDto.fromEntity(announcement),
