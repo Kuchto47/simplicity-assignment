@@ -27,6 +27,7 @@ Techstack used:
 - ESLint
 - Prettier
 - tRPC and tRPC Panel
+- nvm for Node version management; see .nvmrc file(s) to understand node version prerequisites 
 
 ## Backend
 
