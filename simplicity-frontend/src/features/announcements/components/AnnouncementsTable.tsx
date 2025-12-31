@@ -9,16 +9,17 @@ import {
 import { Pen, Plus } from 'lucide-react';
 import { useAnnouncements } from '@/features/announcements/hooks/useAnnouncements.ts';
 import { format } from 'date-fns';
+import { useCategories } from '@/features/announcements/hooks/useCategories.ts';
 
 export const AnnouncementsTable = () => {
-  const { data } = useAnnouncements();
+  const { data: announcements } = useAnnouncements();
 
   return (
     <Table>
       <AnnouncementsTableHead />
       <TableBody>
         <AddAnnouncementTableRow />
-        {data.map((announcement) => (
+        {announcements.map((announcement) => (
           <AnnouncementTableRow
             key={announcement.id}
             announcement={announcement}
@@ -62,6 +63,8 @@ const AnnouncementTableRow = ({
 }: {
   announcement: ReturnType<typeof useAnnouncements>['data'][0];
 }) => {
+  const { data: categories } = useCategories();
+
   return (
     <TableRow>
       <TableCell>{announcement.title}</TableCell>
@@ -72,7 +75,9 @@ const AnnouncementTableRow = ({
         {format(new Date(announcement.updatedAt), 'MMM d, yyyy')}
       </TableCell>
       <TableCell>
-        {announcement.categoryIds.map((cid) => cid.id.substring(0, 4))}
+        {announcement.categoryIds.map(
+          (cid) => categories.find((c) => c.id === cid.id)?.name
+        )}
       </TableCell>
       <TableCell className="flex justify-end">
         <Pen className="cursor-pointer" />

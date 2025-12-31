@@ -3,11 +3,13 @@ import { announcementsQueryOptions } from '@/features/announcements/hooks/useAnn
 import { AnnouncementsTableTitle } from '@/features/announcements/components/AnnouncementsTableTitle.tsx';
 import { AnnouncementsTable } from '@/features/announcements/components/AnnouncementsTable.tsx';
 import { Suspense } from 'react';
+import { categoriesQueryOptions } from '@/features/announcements/hooks/useCategories.ts';
 
 export const Route = createFileRoute('/announcements')({
   component: Announcements,
   loader: ({ context }) => {
-    return context.queryClient.ensureQueryData(announcementsQueryOptions);
+    context.queryClient.ensureQueryData(announcementsQueryOptions);
+    context.queryClient.ensureQueryData(categoriesQueryOptions);
   },
 });
 
