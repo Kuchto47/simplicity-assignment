@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { TRPCModule } from 'nestjs-trpc';
-import { TrpcPanelController } from './trpc-panel.controller';
+import { TRPCModule } from 'nestjs-trpc-v2';
+import { TrpcUiController } from './trpc-ui.controller';
 
 @Module({
   imports: [
@@ -9,7 +9,7 @@ import { TrpcPanelController } from './trpc-panel.controller';
       basePath: '/trpc',
     }),
   ],
-  controllers: [TrpcPanelController],
+  controllers: [TrpcUiController],
   providers: [],
 })
 export class TrpcModule {}

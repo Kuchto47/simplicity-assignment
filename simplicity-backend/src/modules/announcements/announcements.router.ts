@@ -1,4 +1,4 @@
-import { Input, Mutation, Query, Router } from 'nestjs-trpc';
+import { Input, Mutation, Query, Router } from 'nestjs-trpc-v2';
 import { categoryDtoSchema } from './model/dto/category.dto.schema';
 import { AnnouncementsService } from './announcements.service';
 import { z } from 'zod';
